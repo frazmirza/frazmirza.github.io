@@ -91,11 +91,12 @@
     text-decoration: none; letter-spacing: 0.05em;
     transition: color 0.2s;
     position: relative;
+    display: flex; align-items: center; gap: 0.35rem;
   }
-  .nav-links a::before {
-    content: attr(data-num);
-    color: var(--accent); margin-right: 0.3rem;
-    font-size: 0.7rem;
+  .nav-links a .nav-num {
+    color: var(--accent);
+    font-size: 0.68rem;
+    opacity: 0.8;
   }
   .nav-links a:hover { color: var(--text); }
 
@@ -229,9 +230,16 @@
   /* SECTIONS */
   section { padding: 6rem 4rem; }
   .section-label {
-    font-family: 'DM Mono', monospace; font-size: 0.75rem;
-    color: var(--accent); letter-spacing: 0.12em;
-    margin-bottom: 0.8rem; display: block;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.15em;
+    margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.6rem;
+    text-transform: uppercase;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--accent);
   }
   .section-title {
     font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
@@ -470,10 +478,10 @@
 <nav>
   <a href="#hero" class="nav-logo">FA<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="#skills" data-num="01">Skills</a></li>
-    <li><a href="#experience" data-num="02">Experience</a></li>
-    <li><a href="#projects" data-num="03">Projects</a></li>
-    <li><a href="#contact" data-num="04">Contact</a></li>
+    <li><a href="#skills"><span class="nav-num">01</span> Skills</a></li>
+    <li><a href="#experience"><span class="nav-num">02</span> Experience</a></li>
+    <li><a href="#projects"><span class="nav-num">03</span> Projects</a></li>
+    <li><a href="#contact"><span class="nav-num">04</span> Contact</a></li>
   </ul>
 </nav>
 
@@ -520,7 +528,7 @@
 
 <!-- SKILLS -->
 <section id="skills">
-  <span class="section-label">// 01 — TECH STACK</span>
+  <span class="section-label">01 — TECH STACK</span>
   <h2 class="section-title">What I <em>build</em> with</h2>
   <div class="skills-grid">
     <div class="skill-card reveal">
@@ -583,7 +591,7 @@
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <span class="section-label">// 02 — CAREER</span>
+  <span class="section-label">02 — CAREER</span>
   <h2 class="section-title">Where I've <em>worked</em></h2>
   <div class="timeline">
 
@@ -654,7 +662,7 @@
 
 <!-- PROJECTS -->
 <section id="projects">
-  <span class="section-label">// 03 — PROJECTS</span>
+  <span class="section-label">03 — PROJECTS</span>
   <h2 class="section-title">Things I've <em>built</em></h2>
   <div class="projects-grid">
 
@@ -741,17 +749,17 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <span class="section-label">// 04 — CONTACT</span>
+  <span class="section-label">04 — CONTACT</span>
   <div class="contact-wrapper">
     <div class="contact-info reveal">
       <h2>Let's build something <em style="color:var(--accent)">great</em> together.</h2>
       <p>I'm open to senior engineering roles, contract work, and interesting collaborations. Based in Leeds — available for hybrid and on-site opportunities across the UK.</p>
       <div class="contact-links">
-        <a href="mailto:frazmirza58@gmail.com" class="contact-link">
+        <a href="/cdn-cgi/l/email-protection#72140013081f1b000813474a32151f131b1e5c111d1f" class="contact-link">
           <span class="contact-link-icon">✉️</span>
           <div class="contact-link-text">
             <span class="contact-link-label">EMAIL</span>
-            <span class="contact-link-val">frazmirza58@gmail.com</span>
+            <span class="contact-link-val"><span class="__cf_email__" data-cfemail="c3a5b1a2b9aeaab1b9a2f6fb83a4aea2aaafeda0acae">[email&#160;protected]</span></span>
           </div>
         </a>
         <a href="https://www.linkedin.com/in/fa808" target="_blank" class="contact-link">
@@ -804,13 +812,13 @@
   <a href="#hero" class="footer-logo">FA<span>.</span></a>
   <span class="footer-copy">© 2025 Fraz Ahmad · Built with ♥ in Leeds</span>
   <div class="footer-links">
-    <a href="mailto:frazmirza58@gmail.com" title="Email">✉️</a>
+    <a href="/cdn-cgi/l/email-protection#462034273c2b2f343c27737e06212b272f2a6825292b" title="Email">✉️</a>
     <a href="https://www.linkedin.com/in/fa808" target="_blank" title="LinkedIn">💼</a>
     <a href="https://github.com/fa808" target="_blank" title="GitHub">🐙</a>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
@@ -861,7 +869,10 @@
     let current = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
     document.querySelectorAll('.nav-links a').forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+      const isActive = a.getAttribute('href') === '#' + current;
+      a.style.color = isActive ? 'var(--accent)' : '';
+      const num = a.querySelector('.nav-num');
+      if (num) num.style.opacity = isActive ? '1' : '0.8';
     });
   });
 </script>
